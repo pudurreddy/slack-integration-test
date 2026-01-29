@@ -11,5 +11,5 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
-              "text": "✅ Test successful! GitHub Actions is now talking to Slack."
+              "text": "The integration is finally working! 🎉"
             }
