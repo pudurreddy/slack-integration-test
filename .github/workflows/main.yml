@@ -8,7 +8,7 @@ jobs:
       - name: Send Slack Message
         uses: slackapi/slack-github-action@v2
         with:
-          webhook: ${{ secrets.SLACK-WEBHOOK-URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
               "text": "✅ Test successful! GitHub Actions is now talking to Slack."
