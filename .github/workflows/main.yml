@@ -1,14 +1,18 @@
 name: Slack-integration-test
-on: [push] # Triggers every time you save a change
+
+on:
+  push:   # Triggers workflow on every push
 
 jobs:
   notify:
     runs-on: ubuntu-latest
+
     steps:
       - name: Send Slack Message
         uses: slackapi/slack-github-action@v2
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
               "text": "✅ Test successful! GitHub Actions is now talking to Slack."
