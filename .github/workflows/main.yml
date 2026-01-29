@@ -1,4 +1,4 @@
-name: Slack Ping
+name: Slack-integration-test
 on: [push] # Triggers every time you save a change
 
 jobs:
