@@ -16,7 +16,7 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "📢 *New Commit Detected*",
+              "text": ":loudspeaker: *New Commit Detected*",
               "attachments": [
                 {
                   "color": "#36a64f",
@@ -30,6 +30,11 @@ jobs:
                       "title": "Branch",
                       "value": "${{ github.ref_name }}",
                       "short": true
+                    },
+                    {
+                      "title": "Commit ID",
+                      "value": "`${{ github.sha }}`",
+                      "short": false
                     },
                     {
                       "title": "Commit Message",
