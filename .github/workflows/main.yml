@@ -1,21 +1,47 @@
-name: Slack Ping
+name: Slack Detailed Notification
 
-on:
-  push:   # Triggers workflow on every push
+on: [push]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Send Slack Message
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Send Detailed Slack Message
         uses: slackapi/slack-github-action@v2
         with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "The integration is finally working! 🎉"
+              "text": "📢 *New Commit Detected*",
+              "attachments": [
+                {
+                  "color": "#36a64f",
+                  "fields": [
+                    {
+                      "title": "Author",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit Message",
+                      "value": "${{ github.event.head_commit.message }}"
+                    },
+                    {
+                      "title": "Commit Link",
+                      "value": "<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|Click here to view code change>"
+                    }
+                  ]
+                }
+              ]
             }
 
      
