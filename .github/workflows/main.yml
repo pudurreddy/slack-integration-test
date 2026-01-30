@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Slack Message
+       - name: Notify Slack on Success
+        if: success()  # Only runs if all previous steps pass
         uses: slackapi/slack-github-action@v2
         with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: incoming-webhook
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
-              "text": "✅ Test successful! GitHub Actions is now talking to Slack."
+              "text": "🚀 *Deployment Successful!* \n *Environment:* Production \n *Deployer:* ${{ github.actor }} \n *Branch:* ${{ github.ref_name }}"
             }
