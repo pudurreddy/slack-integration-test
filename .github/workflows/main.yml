@@ -1,4 +1,4 @@
-name: Slack-integration-test
+name: Slack Ping
 
 on:
   push:   # Triggers workflow on every push
@@ -8,13 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-       - name: Notify Slack on Failure
-        if: failure()  # Only runs if a previous step fails
+      - name: Send Slack Message
         uses: slackapi/slack-github-action@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
-              "text": "❌ *Build Failed!* \n *Repo:* ${{ github.repository }} \n *Commit:* ${{ github.sha }} \n <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Failed Run>"
+              "text": "The integration is finally working! 🎉"
             }
+
      
