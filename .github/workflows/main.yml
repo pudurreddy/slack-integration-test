@@ -26,3 +26,12 @@ jobs:
             {
               "text": "❌ *Build Failed!* \n *Repo:* ${{ github.repository }} \n *Commit:* ${{ github.sha }} \n <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Failed Run>"
             }
+      - name: Notify Slack on Failure
+        if: failure()  # Only runs if a previous step fails
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "❌ *Build Failed!* \n *Repo:* ${{ github.repository }} \n *Commit:* ${{ github.sha }} \n <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Failed Run>"
+            }
